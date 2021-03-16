@@ -8,12 +8,23 @@ import {
   Dropdown,
 } from "semantic-ui-react";
 import firebase from "../../firebase";
-export default class UserPanel extends Component {
+import { connect } from "react-redux";
+class UserPanel extends Component {
+  state = {
+    user: null,
+  };
+
+  componentDidMount = () => {
+    this.setState({
+      user: this.props.currentUser,
+    });
+  };
   dropdownOptions = () => [
     {
       text: (
         <span>
-          Signed in as <strong>User</strong>
+          Signed in as{" "}
+          <strong>{this.state.user && this.state.user.displayName}</strong>
         </span>
       ),
       disabled: true,
@@ -29,10 +40,7 @@ export default class UserPanel extends Component {
     },
   ];
   handleSignout = () => {
-    firebase
-      .auth()
-      .signOut()
-    .then()
+    firebase.auth().signOut().then();
   };
 
   render() {
@@ -56,3 +64,8 @@ export default class UserPanel extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(UserPanel);
