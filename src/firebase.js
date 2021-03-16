@@ -1,9 +1,10 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import "firebase/storage";
+import "firebase/firestore";
 
-const firebaseConfig = {
+var firebaseConfig = {
   apiKey: "AIzaSyDQvgnWtZ8g2RzavoI1-f42OPPjxlXa8fo",
   authDomain: "react-slack-clone-45da1.firebaseapp.com",
   projectId: "react-slack-clone-45da1",
