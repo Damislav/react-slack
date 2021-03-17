@@ -1,16 +1,6 @@
-import React, { Component } from "react";
-import {
-  Grid,
-  GridRow,
-  GridColumn,
-  Header,
-  Image,
-  Icon,
-  Dropdown,
-} from "semantic-ui-react";
+import React from "react";
 import firebase from "../../firebase";
-
-import { connect } from "react-redux";
+import { Grid, Header, Icon, Dropdown, Image } from "semantic-ui-react";
 
 class UserPanel extends React.Component {
   state = {
@@ -46,6 +36,7 @@ class UserPanel extends React.Component {
 
   render() {
     const { user } = this.state;
+
     return (
       <Grid style={{ background: "#4c3c4c" }}>
         <Grid.Column>
@@ -55,6 +46,7 @@ class UserPanel extends React.Component {
               <Icon name="code" />
               <Header.Content>DevChat</Header.Content>
             </Header>
+
             {/* User Dropdown  */}
             <Header style={{ padding: "0.25em" }} as="h4" inverted>
               <Dropdown
