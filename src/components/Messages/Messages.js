@@ -12,6 +12,18 @@ class Messages extends React.Component {
     user: this.props.currentUser,
   };
 
+  componentDidMount() {
+    const { channel, user } = this.state;
+    if (channel && user) {
+      this.addListeners(channel.id);
+    }
+  }
+  addListeners = (channelId) => {
+  this.addMessageListeners
+  }
+  addMessageListeners = (channelId) => {
+    
+  }
   render() {
     const { messagesRef, channel, user } = this.state;
 
