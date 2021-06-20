@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Comment } from "semantic-ui-react";
+import { Segment, Comment, Message } from "semantic-ui-react";
 import firebase from "../../firebase";
 
 import MessagesHeader from "./MessagesHeader";
@@ -8,6 +8,8 @@ import MessageForm from "./MessagesForm";
 class Messages extends React.Component {
   state = {
     messagesRef: firebase.database().ref("messages"),
+    messages: [],
+    messagesLoading: true,
     channel: this.props.currentChannel,
     user: this.props.currentUser,
   };
@@ -19,20 +21,36 @@ class Messages extends React.Component {
     }
   }
   addListeners = (channelId) => {
-  this.addMessageListeners
-  }
+    this.addMessageListeners;
+  };
   addMessageListeners = (channelId) => {
-    
-  }
+    let loadedMessages = [];
+    this.state.messagesRef.child(channelId).on("child_added", (snap) => {
+      loadedMessages.push(snap.val());
+      this.setState({
+        messages: loadedMessages,
+        messagesLoading: false,
+      });
+    });
+  };
+
+  displayMessages = (messages) => {
+    messages.length > 0 &&
+      messages.map((messages) => {
+        <Message />;
+      });
+  };
   render() {
-    const { messagesRef, channel, user } = this.state;
+    const { messagesRef, messages, channel, user } = this.state;
 
     return (
       <React.Fragment>
         <MessagesHeader />
 
         <Segment>
-          <Comment.Group className="messages">{/* Messages */}</Comment.Group>
+          <Comment.Group className="messages">
+            {this.displayMessages(messages)}
+          </Comment.Group>
         </Segment>
 
         <MessageForm
